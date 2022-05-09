@@ -35,3 +35,25 @@ function playRound(playerSelection, computerSelection) {
             }
     }
 }
+
+function game() {
+    let playerScore = 0;
+    let computerScore = 0;
+    let playerSelection, computerSelection, result;
+
+    for (var i = 0; i < 5; i++){
+        playerSelection = prompt("Enter 'Rock', 'Paper', or 'Scissors': ");
+        playerSelection = playerSelection.toLowerCase()[0];
+        computerSelection = computerPlay();
+
+        result = playRound(playerSelection, computerSelection);
+
+        if (result.includes("win")) {
+            playerScore++;
+        } else if (result.includes("lose")) {
+            computerScore++;
+        }
+
+        console.log(`${result}\nPlayer: ${playerScore}\nComputer: ${computerScore} `)
+    }
+}
