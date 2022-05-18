@@ -5,7 +5,7 @@ function computerPlay() {
 }
 
 function playRound(playerSelection, computerSelection) {
-  switch (playerSelection) {
+  switch (playerSelection.toLowerCase()[0]) {
     case 'r': // Rock
       switch (computerSelection) {
         case 'rock':
@@ -36,30 +36,6 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
-// function game() {
-//   let playerScore = 0;
-//   let computerScore = 0;
-//   let playerSelection, computerSelection, result;
-
-//   for (var i = 0; i < 5; i++){
-//   playerSelection = prompt("Enter 'Rock', 'Paper', or 'Scissors': ");
-//   playerSelection = playerSelection.toLowerCase()[0];
-//   computerSelection = computerPlay();
-
-//   result = playRound(playerSelection, computerSelection);
-
-//   if (result.includes('win')) {
-//     playerScore++;
-//   } else if (result.includes('lose')) {
-//     computerScore++;
-//   }
-
-//   console.log(`
-//       ${result}\nPlayer: ${playerScore}\nComputer: ${computerScore}
-//   `);
-//   }
-// }
-
 const buttons = document.querySelectorAll('button');
 const result = document.querySelector('#result');
 let playerScore = 0;
@@ -70,7 +46,7 @@ let round;
 
 buttons.forEach((button) => {
   button.addEventListener('click', () => {
-    playerSelection = button.id.toLowerCase()[0];
+    playerSelection = button.id;
     computerSelection = computerPlay();
 
     round = playRound(playerSelection, computerSelection);
@@ -81,6 +57,12 @@ buttons.forEach((button) => {
       computerScore++;
     }
 
-    result.textContent = `${round}\nPlayer: ${playerScore}\nComputer: ${computerScore}`;
+    if (playerScore >= 5) {
+      result.innerText = `${round}\n You beat the computer!`;
+    } else if (computerScore >= 5) {
+      result.innerText = `${round}\n The computer beat you!`;
+    } else {
+      result.innerText = `${round}\n Player: ${playerScore} Computer: ${computerScore}`;
+    }
   });
 });
