@@ -36,34 +36,51 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
-function game() {
-  let playerScore = 0;
-  let computerScore = 0;
-  let playerSelection, computerSelection, result;
+// function game() {
+//   let playerScore = 0;
+//   let computerScore = 0;
+//   let playerSelection, computerSelection, result;
 
-  // for (var i = 0; i < 5; i++){
-  playerSelection = prompt("Enter 'Rock', 'Paper', or 'Scissors': ");
-  playerSelection = playerSelection.toLowerCase()[0];
-  computerSelection = computerPlay();
+//   for (var i = 0; i < 5; i++){
+//   playerSelection = prompt("Enter 'Rock', 'Paper', or 'Scissors': ");
+//   playerSelection = playerSelection.toLowerCase()[0];
+//   computerSelection = computerPlay();
 
-  result = playRound(playerSelection, computerSelection);
+//   result = playRound(playerSelection, computerSelection);
 
-  if (result.includes('win')) {
-    playerScore++;
-  } else if (result.includes('lose')) {
-    computerScore++;
-  }
+//   if (result.includes('win')) {
+//     playerScore++;
+//   } else if (result.includes('lose')) {
+//     computerScore++;
+//   }
 
-  console.log(`
-      ${result}\nPlayer: ${playerScore}\nComputer: ${computerScore}
-  `);
-  // }
-}
+//   console.log(`
+//       ${result}\nPlayer: ${playerScore}\nComputer: ${computerScore}
+//   `);
+//   }
+// }
 
 const buttons = document.querySelectorAll('button');
+const result = document.querySelector('#result');
+let playerScore = 0;
+let computerScore = 0;
+let playerSelection;
+let computerSelection;
+let round;
 
 buttons.forEach((button) => {
   button.addEventListener('click', () => {
-    console.log(playRound(button.id.toLowerCase()[0], computerPlay()));
+    playerSelection = button.id.toLowerCase()[0];
+    computerSelection = computerPlay();
+
+    round = playRound(playerSelection, computerSelection);
+
+    if (round.includes('win')) {
+      playerScore++;
+    } else if (round.includes('lose')) {
+      computerScore++;
+    }
+
+    result.textContent = `${round}\nPlayer: ${playerScore}\nComputer: ${computerScore}`;
   });
 });
